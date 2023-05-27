@@ -1,37 +1,36 @@
-import { useState, useEffect } from 'react';
-import axios from 'axios';
+import React from 'react';
 import Character from './components/Character';
-
+import { Container, Row, Col } from 'reactstrap';
 
 const App = () => {
-  const [characters, setCharacters] = useState([]);
-
-  useEffect(() => {
-    const fetchCharacters = async () => {
-      try {
-        const response = await axios.get('https://swapi.dev/api/people/');
-        setCharacters(response.data.results);
-
-        console.log(response.data.results);
-      } catch (error) {
-        console.error('Error fetching characters:', error);
-      }
-    };
-
-    fetchCharacters();
-  }, []);
+  const characters = [
+    'Luke Skywalker',
+    'C-3PO',
+    'R2-D2',
+    'Darth Vader',
+    'Leia Organa',
+    'Owen Lars',
+  ];
 
   return (
-    <div>
-      {characters.map((character) => (
-  <Character key={character.id} character={character} />
-))}
+    <Container>
+      <h1 className="Header">Star Wars Characters</h1>
+      <Row>
+  {characters.map((character, index) => (
+    <React.Fragment key={index}>
+      <Col xs={6} sm={4} md={3} lg={3}>
+        <Character name={character} />
+      </Col>
+    </React.Fragment>
+  ))}
+</Row>
 
-    </div>
+    </Container>
   );
 };
 
 export default App;
+
 
 
 

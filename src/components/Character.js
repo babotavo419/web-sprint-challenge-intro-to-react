@@ -1,64 +1,69 @@
 // Write your Character component here
 // Character.js
 
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
+import { Button, Collapse } from 'reactstrap';
+import axios from 'axios';
 
-const Character = ({ character }) => {
+const Character = ({ name }) => {
   const [expanded, setExpanded] = useState(false);
-  const [characterInfo, setCharacterInfo] = useState(null);
+  const [characterDetails, setCharacterDetails] = useState(null);
 
-  const toggleExpanded = () => {
+  const fetchCharacterDetails = async () => {
+    try {
+      const response = await axios.get(`https://swapi.dev/api/people/?search=${name}`);
+      const results = response.data.results;
+      if (results.length > 0) {
+        setCharacterDetails(results[0]);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const toggleExpanded = async () => {
+    if (!expanded && !characterDetails) {
+      await fetchCharacterDetails();
+    }
     setExpanded(!expanded);
   };
 
-  useEffect(() => {
-    const fetchCharacterInfo = async () => {
-      try {
-        const response = await fetch(character.url);
-        const data = await response.json();
-        setCharacterInfo(data);
-      } catch (error) {
-        console.error('Error fetching character information:', error);
-      }
-    };
-
-    if (expanded && !characterInfo) {
-      fetchCharacterInfo();
-    }
-  }, [expanded, character.url, characterInfo]);
-
   return (
     <div className="character-container">
-      <button
+      <Button
         onClick={toggleExpanded}
         style={{
-          padding: '0.5rem',
+          padding: '1rem',
           backgroundColor: 'transparent',
           alignContent: 'center',
           justifyContent: 'center',
-          border: '5px solid black',
-          margin: '0.5rem',
+          border: '2px solid black',
+          margin: '1rem',
         }}
         className={`button ${expanded ? 'button-collapsed' : ''}`}
       >
-        {character.name}
-      </button>
-      {expanded && characterInfo && (
-        <div className="character-details">
-          <p>Height: {characterInfo.height}</p>
-          <p>Mass: {characterInfo.mass}</p>
-          <p>Hair Color: {characterInfo.hair_color}</p>
-          <p>Skin Color: {characterInfo.skin_color}</p>
-          <p>Eye Color: {characterInfo.eye_color}</p>
-          <p>Birth Year: {characterInfo.birth_year}</p>
-          <p>Gender: {characterInfo.gender}</p>
-        </div>
-      )}
+        {name}
+      </Button>
+      <Collapse isOpen={expanded}>
+        {characterDetails && (
+          <div className="character-details">
+            <p>Height: {characterDetails.height}</p>
+            <p>Mass: {characterDetails.mass}</p>
+            <p>Hair Color: {characterDetails.hair_color}</p>
+            <p>Skin Color: {characterDetails.skin_color}</p>
+            <p>Eye Color: {characterDetails.eye_color}</p>
+            <p>Birth Year: {characterDetails.birth_year}</p>
+            <p>Gender: {characterDetails.gender}</p>
+          </div>
+        )}
+      </Collapse>
     </div>
   );
 };
 
 export default Character;
+
+
 
 
 
