@@ -73,6 +73,24 @@ After finishing your required elements, you can push your work further. These go
 ## Stretch Interview Questions
 
 1. What is React JS and what problems does it solve? Support your answer with concepts introduced in class and from your personal research on the web.
-1. Describe component state.
-1. Describe props.
-1. What are side effects, and how do you sync effects in a React component to changes of certain state or props?
+React JS is a JavaScript library for building user interfaces. It provides a declarative and efficient way to create reusable UI components that update efficiently in response to changes in data. React solves several problems in web development:
+
+Component-based architecture: React promotes the concept of building applications as a composition of reusable components. Components encapsulate their own state and behavior, allowing for modular and maintainable code.
+
+Virtual DOM: React uses a virtual representation of the DOM, which is a lightweight copy of the actual DOM. By comparing the virtual DOM with the real DOM, React determines the minimal set of updates needed to reflect changes in the application state. This approach improves performance by reducing unnecessary re-renders and DOM manipulations.
+
+Unidirectional data flow: React enforces a one-way data flow, where data is passed down from parent components to child components via props. This simplifies data management and makes it easier to understand how data changes propagate through the application.
+
+Efficient updates: React efficiently updates components by using a reconciliation algorithm that identifies the differences between the previous and current component states. Only the necessary updates are applied to the DOM, resulting in better performance.
+2. Describe component state.
+Component state refers to the internal data held by a specific component. It represents the values that can change over time and affect the component's behavior and rendering. State allows components to store and manage dynamic data, such as user input, API responses, or toggling UI elements. State is mutable and controlled by the component itself, and any changes to the state trigger a re-render of the component and its child components.
+
+In React, state is typically initialized in the constructor of a class component or using the useState hook in a functional component. To update the state, you use the setState method in class components or the function returned by the useState hook in functional components. State updates are asynchronous and batched for better performance.
+3. Describe props.
+Props (short for "properties") are a way to pass data from a parent component to its child components. Props are read-only and provide a means for components to receive external data or configuration. They allow parent components to communicate with their children and control their behavior.
+
+Props are passed as attributes to a component when it is used in JSX. The component can access the passed props through its props object. Props can be of any data type, including strings, numbers, booleans, objects, or even functions. They can also include callback functions that child components can invoke to communicate with their parent components.
+
+Unlike state, props are immutable and cannot be modified directly by the component receiving them. They are meant to provide data and configuration to components from the outside, making components more reusable and modular
+4. What are side effects, and how do you sync effects in a React component to changes of certain state or props?
+Side effects in React components refer to operations or behavior that occur outside the scope of component rendering, such as making API calls, manipulating the DOM, subscribing to events, or setting up timers. Side effects often involve asynchronous operations or interactions with external systems.
