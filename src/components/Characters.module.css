@@ -1,16 +1,21 @@
 .container {
-    border: 1px solid black;
-    margin: 10px;
-    padding: 10px;
-    border-radius: 5px;
+    border: 3px solid black;
+    margin: 20px;
+    padding: 20px;
+    border-radius: 20px;
   }
   
   .characterName {
-    font-size: 1.5em;
+    font-size: 2em;
     font-weight: bold;
+    align-content: center;
+    height: inherit;
+    padding: .5rem;
   }
   
   .characterInfo {
     font-size: 1.2em;
+    align-content: center;
+    padding-left: 1rem;
   }
   
